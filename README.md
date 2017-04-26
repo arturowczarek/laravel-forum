@@ -1,8 +1,9 @@
-# Forum
-
-1. Thread
-2. Reply
-3. User
-
-A. Thread is created by a user
-B. A reply belongs to a thread, and belongs to a user.
+#Lesson 1
+To create few fake threads use
+```$threads = factory('App\Thread', 50)->create()```
+Remember to create model factories before.
+Later you can attach responses to threads using
+```$threads->each(
+   function ($thread) { 
+   	factory('App\Reply', 10)->create(['thread_id' => $thread->id]);
+   });```
