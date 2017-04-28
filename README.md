@@ -75,3 +75,15 @@ public function __construct()
     }
 ```
 
+# Lesson 7
+To add helper method to all tests edit `composer.json` and add the files you want to be loaded
+```php
+"autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        },
+        "files": ["tests/utilities/functions.php"]
+    },
+```
+Specify all the helper methods there and run `composer dump-autoload` to refresh loading files
+
