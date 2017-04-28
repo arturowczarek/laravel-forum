@@ -99,3 +99,7 @@ $this->middleware('auth')->except(['index', 'show']);
 
 To selectively capture exceptions during testing use this gist: `https://gist.github.com/adamwathan/125847c7e3f16b88fa33a9f8b42333da`
 
+# Lesson 9
+Foreign keys pointing to increment id's can be done with ```$table->unsignedInteger('user_id');```
+
+You can use double quotes to build strings: ```"/threads/{$this->channel->slug}/{$this->id}"```
