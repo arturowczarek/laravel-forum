@@ -58,4 +58,20 @@ Factory method `make` makes an object but unlike the `create` method don't persi
 To obtain url of named route use `route(routeName)` helper function:
 ```php
 <p><a href="{{ route('login') }}">Please sign in to participate in this discussion.</a></p>```
+```
+
+# Lesson 6
+The method `make` of factory creates onject. The metho `raw` returns only array with the values. We can use id when posting requests during testing:
+```php
+$thread = factory('App\Thread')->raw();
+        $this->post('/threads', $thread);
+```
+
+To apply middleware only to specific methods use
+```php
+public function __construct()
+    {
+        $this->middleware('auth')->only('store');
+    }
+```
 
