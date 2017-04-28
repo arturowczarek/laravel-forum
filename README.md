@@ -53,3 +53,9 @@ function unauthenticated_users_may_not_add_replies()
 ```
 
 Factory method `make` makes an object but unlike the `create` method don't persist it.
+
+# Lesson 5
+To obtain url of named route use `route(routeName)` helper function:
+```php
+<p><a href="{{ route('login') }}">Please sign in to participate in this discussion.</a></p>```
+

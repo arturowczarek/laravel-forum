@@ -17,7 +17,7 @@ class PraticipateInForumTest extends TestCase
     }
 
     /** @test */
-    function an_authenticated_user_may_participate_in_forum_threads()
+    function an_authenticated_user_may_partcipate_in_forum_threads()
     {
         $this->be(factory('App\User')->create());
 
