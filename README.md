@@ -87,3 +87,15 @@ To add helper method to all tests edit `composer.json` and add the files you wan
 ```
 Specify all the helper methods there and run `composer dump-autoload` to refresh loading files
 
+# Lesson 8
+Instead of applying middleware using
+```php
+$this->middleware('auth')->only(['create', 'store']);
+```
+You can give exceptional usage with
+```php
+$this->middleware('auth')->except(['index', 'show']);
+```
+
+To selectively capture exceptions during testing use this gist: `https://gist.github.com/adamwathan/125847c7e3f16b88fa33a9f8b42333da`
+
