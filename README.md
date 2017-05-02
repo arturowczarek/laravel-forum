@@ -145,3 +145,45 @@ class Channel extends Model
     }
 }
 ```
+
+# Leson 13
+We can provide some variables in templates this way:
+```php
+class AppServiceProvider extends ServiceProvider
+{
+    public function boot()
+    {
+    }
+
+    public function register()
+    {
+        \View::composer('threads.create', function($view) {
+            $view->with('channels', \App\Channel::all());
+        });
+    }
+}
+```
+To provide it in multiple views use asterisk:
+```php
+ \View::composer('*', function($view) {
+    $view->with('channels', \App\Channel::all());
+});
+```
+Alternativelly we can share variable in boot method:
+```php
+class AppServiceProvider extends ServiceProvider
+{
+    public function boot()
+    {
+        \View::share('channels', \App\Channel::all());
+    }
+
+    public function register()
+    {
+    }
+}
+```
+You may consider creating your own view service provider with:
+```
+php artisan make:provider ViewServiceProvider
+```
