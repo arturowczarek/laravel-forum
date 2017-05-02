@@ -9,10 +9,12 @@ class AppServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        \View::share('channels', Channel::all());
     }
 
     public function register()
     {
+        \View::composer('*', function($view) {
+            $view->with('channels', \App\Channel::all());
+        });
     }
 }

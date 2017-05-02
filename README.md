@@ -187,3 +187,6 @@ You may consider creating your own view service provider with:
 ```
 php artisan make:provider ViewServiceProvider
 ```
+
+# Lesson 14
+Providing variables in `boot` method may result in errors during testing
