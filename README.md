@@ -196,3 +196,50 @@ Consider extracting some queries into external classes:
 ```php
 (new ThreadsQuery)->get()
 ```
+
+# Lesson 16
+There is a difference whether you access the collection via function name or function execution. This method will fetch all the elements and then counts them
+```php
+{{ $thread->replies->count() }}
+```
+This method will not fetch replies but will count them
+```php
+{{ $thread->replies()->count() }}
+```
+To fetch entity with some counted objects use:
+```php
+Thread::withCount('replies')->first()
+```
+You may also want to add some global variables added to every thread:
+```php
+class Thread extends Model
+{
+    protected $guarded = [];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('replyCount', function ($builer) {
+            $builer->withCount('replies');
+        });
+    }
+}
+```
+
+To add pagination return collection using `paginate` method
+```php
+return view('threads.show', [
+    'thread' => $thread,
+    'replies' => $thread->replies()->paginate(25)
+]);
+```
+
+and then return result of `links()` method and interate over all the items
+```php
+@foreach($replies as $reply)
+    @include('threads.reply')
+@endforeach
+
+{{ $replies->links() }}
+```

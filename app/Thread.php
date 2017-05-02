@@ -8,6 +8,15 @@ class Thread extends Model
 {
     protected $guarded = [];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('replyCount', function ($builer) {
+            $builer->withCount('replies');
+        });
+    }
+
     public function path()
     {
         return "/threads/{$this->channel->slug}/{$this->id}";
