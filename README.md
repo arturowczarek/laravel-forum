@@ -128,3 +128,20 @@ $this->validate($request, [
 ]);
 ```
 
+# Lesson 11
+Laravel provides some syntax sugar while searching. The following lines result in the same.
+```php
+$channelId = Channel::whereSlug($channelSlug)->first()->id;
+$channelId = Channel::where('slug', $channelSlug)->first()->id;
+```
+
+To use other than id column to fetch entities in router use `getRouteKeyName` method
+```php
+class Channel extends Model
+{
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+}
+```
