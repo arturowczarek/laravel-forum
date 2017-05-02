@@ -103,3 +103,28 @@ To selectively capture exceptions during testing use this gist: `https://gist.gi
 Foreign keys pointing to increment id's can be done with ```$table->unsignedInteger('user_id');```
 
 You can use double quotes to build strings: ```"/threads/{$this->channel->slug}/{$this->id}"```
+
+# Lesson 10
+
+When you expect errors on post, use `assertSessionHasErrors` method
+```php
+function a_thread_requires_a_title()
+{
+    $this->withExceptionHandling()->signIn();
+
+    $thread = make('App\Thread', ['title' => null]);
+
+    $this->post('/threads', $thread->toArray())
+        ->assertSessionHasErrors('title');
+}
+```
+
+The validation `exists` checks if the specified value exists in some table colum
+```php
+$this->validate($request, [
+    'title' => 'required',
+    'body' => 'required',
+    'channel_id' => 'required|exists:channels,id'
+]);
+```
+
