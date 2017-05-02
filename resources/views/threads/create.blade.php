@@ -11,25 +11,53 @@
                         <form method="POST" action="/threads">
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <label for="title" class="col-sm-2 control-label">Title</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="title" name="title" placeholder="Title">
-                                </div>
+                                <label for="channel_id">Choose a channel:</label>
+                                <select name="channel_id" id="channel_id" class="form-control" required>
+                                    <option value="">Choose one...</option>
+                                    @foreach(App\Channel::all() as $channel)
+                                        <option value="{{ $channel->id }}" {{ old('channel_id') == $channel->id ? 'selected' : '' }}>
+                                            {{ $channel->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="body" class="col-sm-2 control-label">Body</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" id="body" name="body" placeholder="" rows="8"></textarea>
-                                </div>
+                                <label for="title">Title</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="title"
+                                       name="title"
+                                       placeholder="Title"
+                                       value="{{ old('title') }}"
+                                       required>
                             </div>
 
                             <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-primary">Publish</button>
-                                </div>
+                                <label for="body">Body</label>
+                                <textarea class="form-control"
+                                          id="body"
+                                          name="body"
+                                          placeholder=""
+                                          rows="8"
+                                          required>{{ old('body') }}</textarea>
                             </div>
 
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-primary">Publish</button>
+                            </div>
+
+                            @if(count($errors))
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <ul class="alert alert-danger">
+                                            @foreach($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endif
                         </form>
                     </div>
                 </div>
