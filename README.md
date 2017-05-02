@@ -190,3 +190,9 @@ php artisan make:provider ViewServiceProvider
 
 # Lesson 14
 Providing variables in `boot` method may result in errors during testing
+
+# Lesson 15
+Consider extracting some queries into external classes:
+```php
+(new ThreadsQuery)->get()
+```
