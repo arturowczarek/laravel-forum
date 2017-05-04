@@ -243,3 +243,18 @@ and then return result of `links()` method and interate over all the items
 
 {{ $replies->links() }}
 ```
+
+# Lesson 17
+Instead of fetching html response using `$response = $this->get('threads?popularity=1');`, you can fetch json response with `$this->getJson('threads?popularity=1')->json();`
+To return json return the object
+```php
+if (request()->wantsJson()) {
+    return $threads;
+}
+```
+
+If you want to clear orders of the query, use:
+```php
+$this->bilder->getQuery()->orders = [];
+```
+
