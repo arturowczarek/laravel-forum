@@ -258,3 +258,19 @@ If you want to clear orders of the query, use:
 $this->bilder->getQuery()->orders = [];
 ```
 
+# Lesson 18
+When you have polymorfic relation:
+```php
+public function favorites()
+{
+    return $this->morphMany(Favorite::class, 'favorited');
+}
+```
+
+You can create objects like this:
+```php
+$reply->favorites()->create(['user_id' => auth()->id()]);
+```
+The required fields will be filled in automatically.
+
+
