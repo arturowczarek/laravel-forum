@@ -9,12 +9,18 @@ class AppServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        \View::composer('*', function($view) {
+            $channels = \Cache::rememberForever('channels', function () {
+                return Channel::all();
+            });
+            $view->with('channels', $channels);
+        });
     }
 
     public function register()
     {
-        \View::composer('*', function($view) {
-            $view->with('channels', \App\Channel::all());
-        });
+        if($this->app->isLocal()) {
+            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+        }
     }
 }

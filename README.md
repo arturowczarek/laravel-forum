@@ -273,4 +273,35 @@ $reply->favorites()->create(['user_id' => auth()->id()]);
 ```
 The required fields will be filled in automatically.
 
+# Lesson 20
+https://github.com/barryvdh/laravel-debugbar
 
+To register something only in local environment use `isLocal` method
+```php
+public function register()
+{
+    if($this->app->isLocal()) {
+        $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class,);
+    }
+}
+```
+
+When you fetch some data multiple times you may consider caching it. In this example we fetch channels in multiple views and don't want to fetch it multiple times.
+```php
+\View::composer('*', function($view) {
+    $channels = \Cache::rememberForever('channels', function () {
+        return Channel::all();
+    });
+    $view->with('channels', $channels);
+});
+```
+
+In relationship we can fetch count or other data in relations
+```php
+public function replies()
+{
+    return $this->hasMany(Reply::class)
+        ->withCount('favorites')
+        ->with('owner');
+}
+```
