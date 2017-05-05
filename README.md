@@ -328,3 +328,32 @@ You can reference it with
 ```php
 {{ route('profile', $reply->owner) }}
 ```
+
+# Lesson 23
+To submit json request use
+```php
+$this->json('DELETE', $thread->path());
+```
+
+To check if something is not present in the database:
+```php
+$this->assertDatabaseMissing('threads', ['id' => $thread->id]);
+```
+
+To return error http code with no content use:
+```php
+return response([], 204);
+```
+
+When you want to delete some subentities when deliting entity, you can attach callback in deleting function:
+```php
+protected static function boot()
+{
+    parent::boot();
+
+    static::deleting(function ($thread) {
+        $thread->replies()->delete();
+    });
+}
+```
+
