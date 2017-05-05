@@ -421,3 +421,26 @@ trait RecordsActivity
     }
 }
 ```
+
+# Lesson 26
+You can use function to group entities:
+```php
+$activities = $user
+            ->activity()
+            ->latest()
+            ->with('subject')
+            ->get()
+            ->groupBy(function ($activity) {
+                return $activity->created_at->format('Y-m-d');
+            });
+```
+
+To override variable name within partial pass array with new variables as a second parameter
+```php
+@foreach($activities as $date => $activity)
+    @foreach ($activity as $record)
+        @include("profiles.activities.{$record->type}", ['activity' => $record])
+    @endforeach
+@endforeach
+```
+
