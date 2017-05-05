@@ -40,12 +40,6 @@ class ThreadsController extends Controller
         return view('threads.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -63,63 +57,34 @@ class ThreadsController extends Controller
         return redirect($thread->path());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Thread $thread
-     * @return \Illuminate\Http\Response
-     */
     public function show($channelId, Thread $thread)
     {
         return view('threads.show', [
             'thread' => $thread,
-            'replies' => $thread->replies()->paginate(25)
+            'replies' => $thread->replies()->paginate(20)
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Thread $thread
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Thread $thread)
     {
-        //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Thread $thread
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Thread $thread)
     {
-        //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Thread $thread
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Thread $thread)
     {
-        //
     }
 
     public function getThreads(Channel $channel, ThreadFilters $filters)
     {
-        $threads = Thread::with('channel')->latest()->filter($filters);
+        $threads = Thread::latest()->filter($filters);
 
         if ($channel->exists) {
             $threads->where('channel_id', $channel->id);
         }
 
-        $threads = $threads->get();
-        return $threads;
+        return $threads->get();
     }
 }

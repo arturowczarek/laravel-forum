@@ -305,3 +305,15 @@ public function replies()
         ->with('owner');
 }
 ```
+
+# Leson 21
+If we want to fetch field with every entity query, we should override `$with` field in model
+```php
+protected $with = ['owner'];
+```
+
+If you want to fetch entity without globals use:
+```php
+\App\Thread::withoutGlobalScopes()->first();
+```
+It does not work with `$with` field of the model
