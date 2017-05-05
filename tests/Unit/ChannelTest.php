@@ -5,12 +5,12 @@ namespace Tests\Unit;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
-class ChnnelTest extends TestCase
+class ChannelTest extends TestCase
 {
     use DatabaseMigrations;
 
     /** @test */
-    function a_channel_consosts_of_threads()
+    function a_channel_consists_of_threads()
     {
         $channel = create('App\Channel');
         $thread = create('App\Thread', ['channel_id' => $channel->id]);

@@ -410,3 +410,14 @@ public function boot()
 }
 ```
 
+# Lesson 25
+If you want some trait function to be run during booting use method named bootTraitName, eg:
+```php
+trait RecordsActivity
+{
+    protected static function bootRecordsActivity()
+    {
+        // this will be invoked
+    }
+}
+```
