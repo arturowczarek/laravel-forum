@@ -306,7 +306,7 @@ public function replies()
 }
 ```
 
-# Leson 21
+# Lesson 21
 If we want to fetch field with every entity query, we should override `$with` field in model
 ```php
 protected $with = ['owner'];
@@ -317,3 +317,14 @@ If you want to fetch entity without globals use:
 \App\Thread::withoutGlobalScopes()->first();
 ```
 It does not work with `$with` field of the model
+
+# Lesson 22
+When you have named route:
+```php
+Route::get('/profiles/{user}', 'ProfilesController@show')->name('profile');
+```
+
+You can reference it with
+```php
+{{ route('profile', $reply->owner) }}
+```
