@@ -357,3 +357,56 @@ protected static function boot()
 }
 ```
 
+# Lesson 24
+When there are no objects for foreach we can resort to `@forelse`:
+```php
+@forelse($threads as $thread)
+    <p>{{ $thread->body }}</p>
+@empty
+    <p>There are  no relevant results</p>
+@endforelse
+```
+
+To create new policy use ```php artisan make:policy ThreadPolicy```
+Remember to register it in `AuthServiceProvider`:
+```php
+protected $policies = [
+    'App\Thread' => 'App\Policies\ThreadPolicy',
+];
+```
+Then you can authorize operations with:
+```php
+$this->authorize('update', $thread);
+```
+or
+```php
+@can('update', $thread)
+   ...
+@endcan
+```
+
+To override policy you can write before method:
+```php
+class ThreadPolicy
+{
+    use HandlesAuthorization;
+
+    public function before($user)
+    {
+        if ($user->name == 'Artur') return true;;
+    }
+    ...
+}
+```
+You can also add it to all the policies in `AuthServiceProvider`
+```php
+public function boot()
+{
+    $this->registerPolicies();
+
+    Gate::before(function ($user) {
+        if ($user->name === 'Artur') return true;;
+    });
+}
+```
+
