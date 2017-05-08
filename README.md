@@ -444,3 +444,15 @@ To override variable name within partial pass array with new variables as a seco
 @endforeach
 ```
 
+# Lesson 28
+Instead of
+```php
+$thread->replies->each(function ($reply) {
+    $reply->delete();
+});
+```
+One can write:
+```php
+$thread->replies->each->delete();
+
+```
