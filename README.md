@@ -456,3 +456,15 @@ One can write:
 $thread->replies->each->delete();
 
 ```
+
+# Lesson 32
+To prevent blinking the element until loading use `v-cloak` directive
+```html
+<reply :attributes="{{  $reply }}" inline-template v-cloak>
+</reply>
+```
+and then add css rule to hide elements with v-cloak attribute
+```css
+[v-cloak] { display: none; }
+```
+Once the attribute is loaded, vue will remove v-cloak attribute
