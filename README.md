@@ -468,3 +468,7 @@ and then add css rule to hide elements with v-cloak attribute
 [v-cloak] { display: none; }
 ```
 Once the attribute is loaded, vue will remove v-cloak attribute
+
+# Lesson 33
+Axios can send post/delete/patch request without csrf errors, because the csrf tokens are added in bootstrap.js file
+
