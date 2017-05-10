@@ -472,3 +472,27 @@ Once the attribute is loaded, vue will remove v-cloak attribute
 # Lesson 33
 Axios can send post/delete/patch request without csrf errors, because the csrf tokens are added in bootstrap.js file
 
+# Lesson 34
+When we have custom attributes:
+```php
+trait Favoritable
+{
+    public function getFavoritesCountAttribute()
+    {
+        return $this->favorites->count();
+    }
+}
+```
+We can add them when casting to array or json with:
+```php
+class Reply extends Model
+{
+    use Favoritable;
+
+    protected $appends = ['favoritesCount'];
+```
+
+To refresh entity use `fresh()` method:
+```php
+$reply->fresh()->favorites
+```
