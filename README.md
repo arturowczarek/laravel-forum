@@ -496,3 +496,20 @@ To refresh entity use `fresh()` method:
 ```php
 $reply->fresh()->favorites
 ```
+
+# Lesson 35
+If you want to fire deletion callbacks don't write
+```php
+$this->favorites()->where($attributes)->delete();
+```
+It performs SQL query
+You have to fetch all the entities and on each perform delete function:
+```php
+$this->favorites()->where($attributes)->get()->each(function ($favorite) {
+    $favorite->delete();
+});
+```
+You can alternatively take advantage of higher order collection and write:
+```php
+$this->favorites()->where($attributes)->get()->each->delete();
+```
