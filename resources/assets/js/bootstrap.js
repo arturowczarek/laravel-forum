@@ -21,7 +21,7 @@ try {
 
 window.axios = require('axios');
 
-window.axios.defaults.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken;
+window.axios.defaults.headers.common['X-CSRF-TOKEN'] = window.App.csrfToken;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
@@ -40,6 +40,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 
 window.Vue = require('vue');
+window.Vue.prototype.authorize = function (handler) {
+    let user = window.App.user;
+    return user ? handler(user) : false;
+};
 window.events = new Vue();
 window.flash = function (message) {
     window.events.$emit('flash', message);

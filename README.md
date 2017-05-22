@@ -513,3 +513,27 @@ You can alternatively take advantage of higher order collection and write:
 ```php
 $this->favorites()->where($attributes)->get()->each->delete();
 ```
+
+# Lesson 36
+To have access to some common properties, add them as window properties in layout file:
+```html
+window.App = {!! json_encode([
+    'csrfToken' => csrf_token(),
+    'user' => Auth::user(),
+    'signedIn' => Auth::check()
+]) !!};
+```
+
+You han utilize some trick to perform authorization. Add authorize method which will apply some checking handler on user object:
+```javascript
+window.Vue.prototype.authorize = function (handler) {
+    return handler(window.App.user);
+};
+```
+Then you can write for example:
+```javascript 1.8
+canUpdate() {
+    return this.authorize(user => this.data.user_id == user.id);
+}
+```
+
