@@ -537,4 +537,33 @@ canUpdate() {
 }
 ```
 
-# Lesson 37
+# Lesson 38
+Add rel attributes to pagination elements to help google with pagination:
+```html
+<ul class="pagination">
+    <li>
+        <a href="#" aria-label="Previous" rel="prev">
+            <span aria-hidden="true">&laquo; Previous</span>
+        </a>
+    </li>
+    <li>
+        <a href="#" aria-label="Next" rel="next">
+            <span aria-hidden="true">&raquo; Next</span>
+        </a>
+    </li>
+</ul>
+```
+
+To prevent link from going somewhere on click use:
+```php
+<a href="#" aria-label="Next" rel="next" @click.prevent="page++">
+    <span aria-hidden="true">Next &raquo;</span>
+</a>
+```
+
+To modify url use:
+```javascript
+history.pushState(null, null, '?page=' + this.page);
+```
+
+
