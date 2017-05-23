@@ -566,4 +566,26 @@ To modify url use:
 history.pushState(null, null, '?page=' + this.page);
 ```
 
+# Lesson 39
+To increment column value user function `increment`:
+```php
+public function addReply($reply)
+{
+    $reply = $this->replies()->create($reply);
+
+    $this->increment('replies_count');
+
+    return $reply;
+}
+```
+Another option is to make trigger:
+```php
+protected static function boot()
+{
+    parent::boot();
+    static::created(function ($reply) {
+        $reply->thread->increment('replies_count');
+    });
+}
+```
 

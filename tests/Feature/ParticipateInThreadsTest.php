@@ -18,7 +18,7 @@ class ParticipateInThreadsTest extends TestCase
     }
 
     /** @test */
-    function an_authenticated_user_may_partcipate_in_forum_threads()
+    function an_authenticated_user_may_participate_in_forum_threads()
     {
         $this->signIn();
 
@@ -27,8 +27,8 @@ class ParticipateInThreadsTest extends TestCase
 
         $this->post($thread->path() . '/replies', $reply->toArray());
 
-        $this->get($thread->path())
-            ->assertSee($reply->body);
+        $this->assertDatabaseHas('replies', ['body' => $reply->body]);
+        $this->assertEquals(1, $thread->fresh()->replies_count);
     }
 
     /** @test */
@@ -58,7 +58,7 @@ class ParticipateInThreadsTest extends TestCase
     }
 
     /** @test */
-    function authorized_users_can_deete_replies()
+    function authorized_users_can_delete_replies()
     {
         $this->signIn();
 
@@ -67,6 +67,7 @@ class ParticipateInThreadsTest extends TestCase
         $this->delete("/replies/{$reply->id}")->assertStatus(302);
 
         $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
+        $this->assertEquals(0, $reply->thread->fresh()->replies_count);
     }
 
     /** @test */
