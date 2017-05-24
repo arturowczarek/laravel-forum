@@ -589,3 +589,20 @@ protected static function boot()
 }
 ```
 
+# Lesson 40
+To add foreign key constraint use:
+```php
+$table->foreign('thread_id')
+    ->references('id')
+    ->on('threads')
+    ->onDelete('cascade');
+```
+
+In PHP you can create temporary variables and pass them as arguments:
+```php
+$thread->subscribe($userId = 1);
+
+$this->assertEquals(
+    1,
+    $thread->subscriptions()->where('user_id', $userId)->get()->count());
+```
