@@ -606,3 +606,12 @@ $this->assertEquals(
     1,
     $thread->subscriptions()->where('user_id', $userId)->get()->count());
 ```
+# Lesson 43
+To create notification use `php artisan make:notification ThreadWasUpdated`
+In notification function you can specify its type:
+```php
+public function via($notifiable)
+{
+    return ['mail', 'database'];
+}
+```
