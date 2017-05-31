@@ -12,6 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
+
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
@@ -53,5 +54,17 @@ $factory->define(App\Reply::class, function (Faker\Generator $faker) {
             return factory('App\User')->create()->id;
         },
         'body' => $faker->paragraph
+    ];
+});
+
+$factory->define(\Illuminate\Notifications\DatabaseNotification::class, function (Faker\Generator $faker) {
+    return [
+        'id' => Ramsey\Uuid\Uuid::uuid4()->toString(),
+        'type' => 'App\Notifications\ThreadWasUpdate',
+        'notifiable_id' => function () {
+            return auth()->id() ?: factory('App\User')->create()->id;
+        },
+        'notifiable_type' => 'App\User',
+        'data' => ['foo' => 'bar']
     ];
 });

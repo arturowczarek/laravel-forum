@@ -615,3 +615,30 @@ public function via($notifiable)
     return ['mail', 'database'];
 }
 ```
+
+# Lesson 44
+To generate uuid laravel uses `Uuid::uuid4()->toString()`
+
+The function `tap` pases result of something as a variable to the closure. Eg instead of
+```php
+$user = auth()->user();
+
+$this->assertCount(1, $user->unreadNotifications);
+
+$notificationId = $user->unreadNotifications->first()->id;
+$this->delete("/profiles/{$user->name}/notifications/{$notificationId}");
+
+$this->assertCount(0, $user->fresh()->unreadNotifications);
+```
+
+You can write
+```php
+tap(auth()->user(), function ($user) {
+    $this->assertCount(1, $user->unreadNotifications);
+
+    $notificationId = $user->unreadNotifications->first()->id;
+    $this->delete("/profiles/{$user->name}/notifications/{$notificationId}");
+
+    $this->assertCount(0, $user->fresh()->unreadNotifications);
+});
+```
